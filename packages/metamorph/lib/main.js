@@ -27,8 +27,15 @@ define("metamorph",
         // the first node an invisible text node. We, like Modernizr, use &shy;
         needsShy = typeof document !== 'undefined' && (function() {
           var testEl = document.createElement('div');
-          testEl.innerHTML = "<div></div>";
-          testEl.firstChild.innerHTML = "<script></script>";
+
+          // replaced with decouple
+          // testEl.innerHTML = "<div></div>";
+          Ember.decouple.innerHTML(testEl, "<div></div>");
+          
+          // replaced with decouple
+          // testEl.firstChild.innerHTML = "<script></script>";
+          Ember.decouple.innerHTML(testEl.firstChild, "<script></script>");
+
           return testEl.firstChild.innerHTML === '';
         })(),
 
@@ -38,7 +45,12 @@ define("metamorph",
         // accidentally remove whitespace when updating a morph.
         movesWhitespace = document && (function() {
           var testEl = document.createElement('div');
-          testEl.innerHTML = "Test: <script type='text/x-placeholder'></script>Value";
+
+          // replaced with decouple
+          // testEl.innerHTML = "Test: <script type='text/x-placeholder'></script>Value";
+          
+          Ember.decouple.innerHTML(testEl, "Test: <script type='text/x-placeholder'></script>Value");
+
           return testEl.childNodes[0].nodeValue === 'Test:' &&
                   testEl.childNodes[2].nodeValue === ' Value';
         })();
@@ -57,7 +69,10 @@ define("metamorph",
         self = new K();
       }
 
-      self.innerHTML = html;
+      // replaced with decouple
+      // self.innerHTML = html;
+      Ember.decouple.innerHTML(self, html);
+
       var myGuid = 'metamorph-'+(guid++);
       self.start = myGuid + '-start';
       self.end = myGuid + '-end';
@@ -216,7 +231,9 @@ define("metamorph",
           });
         }
 
-        element.innerHTML = html;
+        // replaced with decouple
+        // element.innerHTML = html;
+        Ember.decouple.innerHTML(element, html);
 
         // If we have to do any whitespace adjustments do them now
         if (matches.length > 0) {
@@ -446,7 +463,9 @@ define("metamorph",
 
       htmlFunc.call(this, html);
 
-      this.innerHTML = html;
+      // replaced with decouple
+      // this.innerHTML = html;
+      Ember.decouple.innerHTML(this, html);
     };
 
     Metamorph.prototype.replaceWith = function(html) {

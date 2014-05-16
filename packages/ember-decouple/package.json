@@ -1,0 +1,21 @@
+{
+  "name": "ember-decouple",
+  "summary": "Decoupler lib to help Ember be more platform-agnostic",
+  "description": "Decoupling helpers for Ember",
+  "homepage": "http://www.emberjs.com",
+  "author": "Austin Happel",
+  "version": "1.0.0",
+
+  "directories": {
+    "lib": "lib"
+  },
+
+  "bpm:build": {
+    "bpm_libs.js": {
+      "files": ["lib"],
+      "modes":        "*"
+    }
+  }
+
+}
+

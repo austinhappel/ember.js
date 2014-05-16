@@ -1,3 +1,4 @@
+require('ember-decouple');
 require('ember-application');
 
 /**

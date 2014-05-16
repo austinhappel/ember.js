@@ -1530,7 +1530,10 @@ Ember.View = Ember.CoreView.extend({
     this._insertElementLater(function() {
       Ember.assert("You tried to append to (" + target + ") but that isn't in the DOM", Ember.$(target).length > 0);
       Ember.assert("You cannot append to an existing Ember.View. Consider using Ember.ContainerView instead.", !Ember.$(target).is('.ember-view') && !Ember.$(target).parents().is('.ember-view'));
-      this.$().appendTo(target);
+      
+      // replaced with decouple
+      // this.$().appendTo(target);
+      Ember.decouple.$.appendTo(target, this);
     });
 
     return this;

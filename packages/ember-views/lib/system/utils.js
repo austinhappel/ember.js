@@ -11,8 +11,14 @@
 
 var needsShy = typeof document !== 'undefined' && (function() {
   var testEl = document.createElement('div');
-  testEl.innerHTML = "<div></div>";
-  testEl.firstChild.innerHTML = "<script></script>";
+  // replaced with decouple
+  // testEl.innerHTML = "<div></div>";
+  Ember.decouple.innerHTML(testEl, "<div></div>");
+  
+  // replaced with decouple
+  // testEl.firstChild.innerHTML = "<script></script>";
+  Ember.decouple.innerHTML(testEl.firstChild, "<script></script>");
+
   return testEl.firstChild.innerHTML === '';
 })();
 
@@ -21,7 +27,10 @@ var needsShy = typeof document !== 'undefined' && (function() {
 // accidentally remove whitespace when updating a morph.
 var movesWhitespace = typeof document !== 'undefined' && (function() {
   var testEl = document.createElement('div');
-  testEl.innerHTML = "Test: <script type='text/x-placeholder'></script>Value";
+  // replaced with decouple
+  // testEl.innerHTML = "Test: <script type='text/x-placeholder'></script>Value";
+  Ember.decouple.innerHTML(testEl, "Test: <script type='text/x-placeholder'></script>Value");
+
   return testEl.childNodes[0].nodeValue === 'Test:' &&
           testEl.childNodes[2].nodeValue === ' Value';
 })();
@@ -53,7 +62,9 @@ var setInnerHTMLWithoutFix = function(element, html) {
     });
   }
 
-  element.innerHTML = html;
+  // replaced with decouple
+  // element.innerHTML = html;
+  Ember.decouple.innerHTML(element, html);
 
   // If we have to do any whitespace adjustments do them now
   if (matches.length > 0) {
