@@ -14,7 +14,7 @@ var platform = (function () {
 
   return 'notWindows8';
 
-});
+}());
 
 var decouple;
 
