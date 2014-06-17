@@ -25396,10 +25396,28 @@ Ember.merge(states.hasElement, {
 function insertViewCollection(view, viewCollection, previous, buffer) {
   viewCollection.triggerRecursively('willInsertElement');
 
+  var insertAfter,
+    insertBefore;
+
   if (previous) {
-    previous.domManager.after(previous, buffer.string());
+    insertAfter = function () {
+      previous.domManager.after(previous, buffer.string());
+    };
+
+    if (window.MSApp) {
+      window.MSApp.execUnsafeLocalFunction(insertAfter);
+    } else {
+      insertAfter.call();
+    }
   } else {
-    view.domManager.prepend(view, buffer.string());
+    insertBefore = function () {
+      view.domManager.prepend(view, buffer.string());
+    };
+    if (window.MSApp) {
+      window.MSApp.execUnsafeLocalFunction(insertBefore);
+    } else {
+      insertBefore.call();
+    }
   }
 
   viewCollection.forEach(function(v) {
